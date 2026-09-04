@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo · Português 9º ano · Arquivo dos Diários</title>
+<style>
+  :root{
+    --bg:#0f1720; --panel:#16212e; --panel2:#1d2b3a; --ink:#eae3d1;
+    --parch:#efe6cf; --parch2:#e6d9bb; --amber:#f0b84a; --amber2:#e0a83e;
+    --teal:#43c0b0; --teal2:#2f9c8f; --red:#e0655f; --reddark:#c0433d;
+    --green:#57b894; --line:#2c3d4f; --post:#f4e07a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(160deg,#0d141c,#111d29 60%,#0f1a24);
+    color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.6}
+  .wrap{max-width:900px;margin:0 auto;padding:20px 16px 90px}
+  header.top{text-align:center;padding:24px 16px;border:1px solid var(--line);border-radius:16px;
+    background:radial-gradient(circle at 50% 0%,#123f38,#141f2b);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  header.top:before{content:"✦ ARQUIVO DOS DIÁRIOS ✦";display:block;font-family:"Courier New",monospace;
+    letter-spacing:4px;font-size:11px;color:var(--teal);opacity:.8;margin-bottom:6px}
+  h1{margin:.2em 0;font-size:26px;color:var(--teal)}
+  .sub{color:#a7c7c0;font-style:italic;margin:0}
+  .nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 22px}
+  .nav a{text-decoration:none;font-size:13px;font-family:"Courier New",monospace;color:#0f1720;
+    background:var(--parch2);padding:6px 12px;border-radius:20px}
+  .nav a.here{background:var(--teal);font-weight:bold}
+  .painel{margin:12px 0 18px;border:1px dashed var(--teal2);border-radius:12px;background:#12222b;
+    padding:12px 14px;font-size:13px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+  .painel .info{font-family:"Courier New",monospace;color:#9fd7cf}
+  .painel button{font-family:inherit;cursor:pointer;border-radius:8px;padding:7px 12px;font-size:13px;
+    background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  h2.sec{font-size:21px;color:var(--amber);border-left:5px solid var(--amber);padding-left:12px;margin:30px 0 6px}
+  .cap-tag{font-family:"Courier New",monospace;font-size:11px;color:#0f1720;background:var(--teal);padding:2px 8px;border-radius:10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:14px 0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .card h3{margin:0 0 8px;color:var(--teal);font-size:17px}
+  .card p{margin:.4em 0}
+  .card .ex{background:#12202b;border-left:3px solid var(--teal);padding:8px 10px;border-radius:6px;margin-top:8px;font-size:14px}
+  b.hl{color:var(--amber)}
+  /* flip cards */
+  .flipgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+  .flip{perspective:1000px;height:170px;cursor:pointer}
+  .flip .inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+  .flip.open .inner{transform:rotateY(180deg)}
+  .flip .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:16px;
+    display:flex;flex-direction:column;justify-content:center;text-align:center;border:1px solid var(--line)}
+  .flip .front{background:linear-gradient(150deg,#1a5c52,#123f38);color:#eafff9}
+  .flip .front .q{font-size:17px;font-weight:bold}
+  .flip .front small{margin-top:8px;color:#9fd7cf;font-family:'Courier New',monospace}
+  .flip .back{background:var(--parch);color:#26313a;transform:rotateY(180deg);font-size:14px;overflow:auto}
+  .flip .back b{color:var(--reddark)}
+  .post{background:var(--post);color:#3a3410;border-radius:8px;padding:12px 14px;margin:10px 0;
+    box-shadow:2px 3px 8px rgba(0,0,0,.35);position:relative;font-size:15px}
+  .post:before{content:"📌 DICA DE PROVA";display:block;font-family:"Courier New",monospace;font-size:11px;font-weight:bold;margin-bottom:4px;opacity:.7}
+  .peg{background:#2a1414;border:1px solid var(--reddark);border-radius:10px;padding:12px 14px;margin:10px 0}
+  .peg:before{content:"⚠️ PEGADINHA";display:block;color:var(--red);font-family:"Courier New",monospace;font-size:12px;font-weight:bold;margin-bottom:4px}
+  table.comp{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+  table.comp th,table.comp td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  table.comp th{background:#12202b;color:var(--amber)}
+  table.comp td b{color:var(--teal)}
+  .glos{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 18px;margin:14px 0}
+  .glos dt{color:var(--amber);font-weight:bold;margin-top:10px}
+  .glos dd{margin:2px 0 8px;color:#cfe3dc}
+  .rodape{text-align:center;margin-top:30px}
+  .rodape a{text-decoration:none;background:var(--amber);color:#0f1720;font-weight:bold;padding:12px 26px;border-radius:30px;font-family:"Courier New",monospace}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--teal);color:#0f1720;padding:10px 20px;border-radius:24px;font-weight:bold;opacity:0;transition:.3s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1}
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:60}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:420px;padding:22px;text-align:center}
+  .modal button{margin:0 6px;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-family:inherit}
+  .modal .ok{background:var(--red);color:#fff}.modal .cancel{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .check{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:14px;color:#9fd7cf}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>🗺️ Resumo de Batalha</h1>
+    <p class="sub">Tudo o que cai na prova, em cartas e post-its · Cap. 17 + Cap. 18</p>
+  </header>
+  <nav class="nav">
+    <a href="leitura-guiada.html">📖 Leitura</a>
+    <a href="quiz.html">🎯 Quiz</a>
+    <a class="here" href="resumo.html">🗺️ Resumo</a>
+    <a href="simulado.html">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+  <div class="painel">
+    <span class="info" id="painelInfo">Suas marcações ficam salvas.</span>
+    <span>
+      <button onclick="exportar()">📥 Exportar</button>
+      <button onclick="document.getElementById('imp').click()">📤 Importar</button>
+      <button onclick="pedirZerar()">🗑️ Zerar</button>
+      <input type="file" id="imp" accept=".json" style="display:none" onchange="importar(event)">
+    </span>
+  </div>
+
+  <p style="text-align:center;color:#9fd7cf;font-style:italic">Toque nas <b>cartas</b> para virar e testar a memória. Leia os post-its amarelos — são as dicas que mais caem. 🃏</p>
+
+  <!-- ============ CAP 17 ============ -->
+  <h2 class="sec">🔗 Cap. 17 — Usos do pronome relativo <span class="cap-tag">págs. 20–26</span></h2>
+
+  <div class="grid">
+    <div class="card"><h3>O que é</h3>
+      <p>Palavra que <b class="hl">retoma um nome já dito</b> (o antecedente) e <b class="hl">liga duas orações</b>, evitando repetição.</p>
+      <div class="ex">O país <b>onde</b> nasci entrou em guerra. → "onde" = "nesse país".</div></div>
+    <div class="card"><h3>Variáveis</h3>
+      <p>Mudam de gênero e número:</p>
+      <p><b>o qual, a qual, os quais, as quais</b><br><b>cujo, cuja, cujos, cujas</b><br><b>quanto, quanta, quantos, quantas</b></p></div>
+    <div class="card"><h3>Invariáveis</h3>
+      <p>Forma sempre igual:</p>
+      <p style="font-size:18px;color:var(--amber)"><b>que · quem · onde · como · quando</b></p>
+      <p style="font-size:13px;color:#9fd7cf">O mais usado é o <b>que</b> (pessoas e coisas).</p></div>
+  </div>
+
+  <div class="post">Decore a tabela: se muda de gênero/número (cujo→cuja, o qual→a qual), é <b>variável</b>. Se nunca muda (que, quem, onde), é <b>invariável</b>.</div>
+
+  <h3 style="color:var(--teal)">🃏 Cartas de revisão — vire e responda</h3>
+  <div class="flipgrid">
+    <div class="flip" onclick="vira(this,'f1')"><div class="inner">
+      <div class="face front"><span class="q">"ONDE" serve para quê?</span><small>toque para virar</small></div>
+      <div class="face back">Só para <b>LUGAR</b>. Para tempo use "em que"; para coisa use "a que / no qual". <br>✔ A cidade onde nasci.<br>✘ A época onde vivi.</div></div></div>
+    <div class="flip" onclick="vira(this,'f2')"><div class="inner">
+      <div class="face front"><span class="q">"CUJO" concorda com quem?</span><small>toque para virar</small></div>
+      <div class="face back">Com a <b>coisa possuída</b> (a que vem depois), não com o dono. E <b>nunca</b> vem artigo depois. <br>✔ país cujas guerras…<br>✘ cuja a vida</div></div></div>
+    <div class="flip" onclick="vira(this,'f3')"><div class="inner">
+      <div class="face front"><span class="q">"QUEM" pede o quê?</span><small>toque para virar</small></div>
+      <div class="face back">Refere-se a <b>pessoa</b> e quase sempre vem com <b>preposição</b>. <br>✔ o superior a quem desobedeceu<br>✘ o superior quem desobedeceu</div></div></div>
+    <div class="flip" onclick="vira(this,'f4')"><div class="inner">
+      <div class="face front"><span class="q">"QUANDO" é sempre relativo?</span><small>toque para virar</small></div>
+      <div class="face back">Não. É <b>relativo</b> se tem antecedente e vira "em que" (o ano quando=em que). É <b>conjunção temporal</b> se só inicia ideia de tempo (Quando acabou, voltei).</div></div></div>
+    <div class="flip" onclick="vira(this,'f5')"><div class="inner">
+      <div class="face front"><span class="q">Quando usar "na qual"?</span><small>toque para virar</small></div>
+      <div class="face back">Depois de <b>preposição</b> e para <b>desfazer ambiguidade</b>.<br>a bandeja <b>na qual</b> deixavam cartões.<br>museu da cidade <b>na qual</b> Anne se escondeu (= na cidade).</div></div></div>
+    <div class="flip" onclick="vira(this,'f6')"><div class="inner">
+      <div class="face front"><span class="q">Para que serve o relativo?</span><small>toque para virar</small></div>
+      <div class="face back">Para <b>evitar repetição</b> e <b>conectar</b> orações, retomando o antecedente.</div></div></div>
+  </div>
+
+  <div class="peg">"onde" para tempo ("a época onde…") ou coisa ("o livro onde…") é o erro nº 1 do capítulo. Sempre troque por <b>em que / no qual / a que</b>.</div>
+  <div class="peg">"cujo o", "cuja a", "cujos os" — todos ERRADOS. O "cujo" some com o artigo. Se vir artigo depois, é pegadinha.</div>
+
+  <!-- ============ CAP 18 ============ -->
+  <h2 class="sec">🧩 Cap. 18 — Oração subordinada adjetiva <span class="cap-tag">págs. 41–46</span></h2>
+
+  <div class="grid">
+    <div class="card"><h3>Função</h3>
+      <p>Caracteriza um <b class="hl">substantivo</b> — vale por um <b class="hl">adjetivo</b>, mas em forma de oração.</p>
+      <div class="ex">a garota <b>que ficou famosa por causa do diário</b> (= a garota famosa)</div></div>
+    <div class="card"><h3>Forma</h3>
+      <p>Intercala-se na oração principal e é sempre introduzida por um <b class="hl">pronome relativo</b>.</p>
+      <div class="ex">O museu <b>que</b> reconstrói cenas do Holocausto fica em SP.</div></div>
+    <div class="card"><h3>Como reconhecer</h3>
+      <p>Tem <b class="hl">verbo</b> + começa com <b class="hl">pronome relativo</b> + <b class="hl">descreve um nome</b>.</p></div>
+  </div>
+
+  <h3 style="color:var(--teal)">Desenvolvidas × Reduzidas</h3>
+  <table class="comp">
+    <tr><th>Tipo</th><th>Como é</th><th>Exemplo</th></tr>
+    <tr><td><b>Desenvolvida</b></td><td>tem conectivo (relativo) + verbo conjugado</td><td>o museu <b>que foi inaugurado</b></td></tr>
+    <tr><td><b>Reduzida de particípio</b></td><td>verbo no particípio, sem conectivo</td><td>o museu <b>inaugurado</b> (=que foi inaugurado)</td></tr>
+    <tr><td><b>Reduzida de gerúndio</b></td><td>verbo no gerúndio, sem conectivo</td><td>pessoas <b>sofrendo</b> (=que sofrem)</td></tr>
+    <tr><td><b>Reduzida de infinitivo</b></td><td>verbo no infinitivo, sem conectivo</td><td>situações <b>de arrepiar</b> (=que arrepiam)</td></tr>
+  </table>
+  <div class="post">Truque da reduzida: se dá para trocar a palavra por <b>"que + verbo"</b>, é uma adjetiva reduzida disfarçada. Para virar desenvolvida, devolva o "que" e conjugue o verbo.</div>
+
+  <h3 style="color:var(--teal)">Explicativa × Restritiva — a virada da vírgula</h3>
+  <table class="comp">
+    <tr><th></th><th>Explicativa</th><th>Restritiva</th></tr>
+    <tr><td><b>Vírgula?</b></td><td>SIM, isolada por vírgulas</td><td>NÃO leva vírgula</td></tr>
+    <tr><td><b>Sentido</b></td><td>generaliza (fala do todo)</td><td>especifica (separa um grupo)</td></tr>
+    <tr><td><b>Exemplo</b></td><td>O homem, <b>que semeia guerras</b>, espalha destruição. (todo homem)</td><td>O homem <b>que semeia guerras</b> espalha destruição. (só esse tipo)</td></tr>
+  </table>
+  <div class="peg">Não decore só "vírgula sim/não". Pense no <b>sentido</b>: quer generalizar (explicativa) ou especificar (restritiva)? A vírgula é a marca, mas o que classifica é o sentido.</div>
+
+  <div class="flipgrid">
+    <div class="flip" onclick="vira(this,'f7')"><div class="inner">
+      <div class="face front"><span class="q">Adjetiva = valor de…?</span><small>toque para virar</small></div>
+      <div class="face back">De <b>adjetivo</b>: ela caracteriza um substantivo.</div></div></div>
+    <div class="flip" onclick="vira(this,'f8')"><div class="inner">
+      <div class="face front"><span class="q">"sofrendo" é reduzida de…?</span><small>toque para virar</small></div>
+      <div class="face back"><b>Gerúndio</b> (= que sofrem). Particípio seria "sofridas"; infinitivo "a sofrer".</div></div></div>
+    <div class="flip" onclick="vira(this,'f9')"><div class="inner">
+      <div class="face front"><span class="q">Entre vírgulas = ?</span><small>toque para virar</small></div>
+      <div class="face back"><b>Explicativa</b> (generaliza). Sem vírgula = <b>restritiva</b> (especifica).</div></div></div>
+  </div>
+
+  <!-- ============ GLOSSÁRIO ============ -->
+  <h2 class="sec">📚 Glossário-relâmpago</h2>
+  <div class="glos"><dl>
+    <dt>Antecedente</dt><dd>O nome que o pronome relativo retoma (vem antes dele).</dd>
+    <dt>Pronome relativo</dt><dd>Palavra que retoma um antecedente e liga orações: que, quem, onde, cujo, o qual, quando…</dd>
+    <dt>Oração subordinada adjetiva</dt><dd>Oração que caracteriza um substantivo, com valor de adjetivo.</dd>
+    <dt>Desenvolvida</dt><dd>Adjetiva com conectivo (relativo) e verbo conjugado.</dd>
+    <dt>Reduzida</dt><dd>Adjetiva sem conectivo, com verbo no particípio, gerúndio ou infinitivo.</dd>
+    <dt>Explicativa</dt><dd>Adjetiva entre vírgulas que generaliza uma característica.</dd>
+    <dt>Restritiva</dt><dd>Adjetiva sem vírgula que delimita/especifica um grupo.</dd>
+  </dl></div>
+
+  <!-- ============ CHECKLIST ============ -->
+  <h2 class="sec">✅ Já revisei…</h2>
+  <div class="card">
+    <div class="check"><input type="checkbox" id="c1" onchange="marcar()"><label for="c1">Sei diferenciar relativos variáveis e invariáveis</label></div>
+    <div class="check"><input type="checkbox" id="c2" onchange="marcar()"><label for="c2">Sei que "onde" só serve para lugar</label></div>
+    <div class="check"><input type="checkbox" id="c3" onchange="marcar()"><label for="c3">Sei usar "cujo" (concordância + sem artigo)</label></div>
+    <div class="check"><input type="checkbox" id="c4" onchange="marcar()"><label for="c4">Reconheço a oração adjetiva numa frase</label></div>
+    <div class="check"><input type="checkbox" id="c5" onchange="marcar()"><label for="c5">Diferencio desenvolvida e reduzida</label></div>
+    <div class="check"><input type="checkbox" id="c6" onchange="marcar()"><label for="c6">Diferencio explicativa e restritiva pela vírgula E pelo sentido</label></div>
+  </div>
+
+  <div class="rodape">
+    <p style="color:var(--amber)">Memória afiada? Hora do desafio final:</p>
+    <a href="simulado.html">📝 Ir para o Simulado →</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="modal-bg" id="modalBg"><div class="modal"><p id="modalTxt"></p>
+  <button class="ok" id="modalOk">Sim</button><button class="cancel" onclick="fecharModal()">Cancelar</button></div></div>
+
+<script>
+var MEM={},KEY="resumo_port9_arquivo_v1";
+function loadState(){try{var s=localStorage.getItem(KEY);return s?JSON.parse(s):{};}catch(e){return MEM[KEY]?JSON.parse(MEM[KEY]):{};}}
+function saveState(st){var s=JSON.stringify(st);try{localStorage.setItem(KEY,s);}catch(e){MEM[KEY]=s;}atualizaPainel();}
+var state=loadState();
+if(!state.flips)state.flips={};
+if(!state.checks)state.checks={};
+
+function vira(el,id){el.classList.toggle('open');state.flips[id]=el.classList.contains('open');saveState(state);}
+function marcar(){for(var i=1;i<=6;i++){state.checks['c'+i]=document.getElementById('c'+i).checked;}saveState(state);}
+
+function restaurar(){
+  document.querySelectorAll('.flip').forEach(function(el){
+    var id=el.getAttribute('onclick').match(/'(f\d)'/)[1];
+    if(state.flips[id])el.classList.add('open');
+  });
+  for(var i=1;i<=6;i++){if(state.checks['c'+i])document.getElementById('c'+i).checked=true;}
+}
+function atualizaPainel(){var d=new Date();document.getElementById('painelInfo').textContent='Salvo às '+d.toLocaleTimeString('pt-BR')+' · '+d.toLocaleDateString('pt-BR');}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}
+function exportar(){var b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='resumo-portugues9.json';a.click();}
+function importar(ev){var f=ev.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{state=JSON.parse(r.result);if(!state.flips)state.flips={};if(!state.checks)state.checks={};saveState(state);location.reload();}catch(e){toast('Arquivo inválido');}};r.readAsText(f);}
+function pedirZerar(){document.getElementById('modalTxt').textContent='Apagar suas marcações do Resumo?';document.getElementById('modalBg').classList.add('show');
+  document.getElementById('modalOk').onclick=function(){state={flips:{},checks:{}};saveState(state);fecharModal();location.reload();};}
+function fecharModal(){document.getElementById('modalBg').classList.remove('show');}
+
+atualizaPainel();
+restaurar();
+</script>
+</body>
+</html>
