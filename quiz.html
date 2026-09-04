@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz · Português 9º ano · Arquivo dos Diários</title>
+<style>
+  :root{
+    --bg:#0f1720; --panel:#16212e; --panel2:#1d2b3a; --ink:#eae3d1;
+    --parch:#efe6cf; --parch2:#e6d9bb; --amber:#f0b84a; --amber2:#e0a83e;
+    --teal:#43c0b0; --teal2:#2f9c8f; --red:#e0655f; --reddark:#c0433d;
+    --green:#57b894; --line:#2c3d4f; --grey:#4a5866;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(160deg,#0d141c,#111d29 60%,#0f1a24);
+    color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.6}
+  .wrap{max-width:820px;margin:0 auto;padding:20px 16px 90px}
+  header.top{text-align:center;padding:24px 16px;border:1px solid var(--line);border-radius:16px;
+    background:radial-gradient(circle at 50% 0%,#3a2c12,#141f2b);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  header.top:before{content:"✦ ARQUIVO DOS DIÁRIOS ✦";display:block;font-family:"Courier New",monospace;
+    letter-spacing:4px;font-size:11px;color:var(--amber2);opacity:.75;margin-bottom:6px}
+  h1{margin:.2em 0;font-size:26px;color:var(--amber)}
+  .sub{color:#c9b48a;font-style:italic;margin:0}
+  .nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 22px}
+  .nav a{text-decoration:none;font-size:13px;font-family:"Courier New",monospace;color:#0f1720;
+    background:var(--parch2);padding:6px 12px;border-radius:20px}
+  .nav a.here{background:var(--amber);font-weight:bold}
+  .painel{margin:12px 0 6px;border:1px dashed var(--amber2);border-radius:12px;background:#20190c;
+    padding:12px 14px;font-size:13px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+  .painel .info{font-family:"Courier New",monospace;color:#e8c98a}
+  .painel button{font-family:inherit;cursor:pointer;border-radius:8px;padding:7px 12px;font-size:13px;
+    background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .painel button:hover{background:#26384a}
+  .prog-wrap{height:10px;background:#13212d;border-radius:10px;overflow:hidden;margin:8px 0 20px;border:1px solid var(--line)}
+  .prog{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--teal));transition:.3s}
+  .q{border:1px solid var(--line);border-radius:14px;margin:14px 0;background:var(--panel);overflow:hidden}
+  .q .cab{background:#1d2b3a;padding:12px 16px;font-weight:bold;color:var(--amber)}
+  .q .cab .tag{font-family:"Courier New",monospace;font-size:11px;background:var(--teal2);color:#0f1720;
+    padding:2px 8px;border-radius:10px;margin-left:8px;font-weight:normal}
+  .q .enun{padding:12px 16px 4px;font-size:16px}
+  .opts{padding:4px 16px 14px}
+  .opt{display:block;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:7px 0;cursor:pointer;
+    background:#13212d;transition:.15s}
+  .opt:hover{border-color:var(--amber2)}
+  .opt input{margin-right:8px}
+  .opt.sel{border-color:var(--amber);background:#241d0c}
+  .opt.correct{border-color:var(--green);background:#12261f}
+  .opt.wrong{border-color:var(--grey);background:#1a1414;opacity:.85}
+  .letra{font-family:"Courier New",monospace;font-weight:bold;margin-right:6px}
+  .expl{display:none;margin:6px 16px 14px;padding:10px 12px;border-radius:8px;font-size:14px}
+  .expl.show{display:block}
+  .expl.ok{background:#12261f;border:1px solid var(--green)}
+  .expl.no{background:#201818;border:1px solid var(--grey)}
+  .barra{position:sticky;bottom:0;background:linear-gradient(0deg,#0d141c,#0d141ccc);padding:14px 0;text-align:center}
+  .enviar{background:var(--amber);color:#0f1720;font-weight:bold;border:none;padding:13px 34px;border-radius:30px;
+    cursor:pointer;font-family:inherit;font-size:16px}
+  .enviar:disabled{background:#3a4653;color:#7d8b98;cursor:not-allowed}
+  .resultado{display:none;border:2px solid var(--amber);border-radius:16px;background:#20190c;padding:22px;margin:18px 0;text-align:center}
+  .resultado.show{display:block}
+  .resultado .nota{font-size:40px;color:var(--amber);font-weight:bold}
+  .codigo{font-family:"Courier New",monospace;font-size:26px;letter-spacing:3px;color:var(--teal);
+    background:#0f1720;border:1px dashed var(--teal);border-radius:10px;padding:10px;margin:12px 0;display:inline-block}
+  .toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--amber);color:#0f1720;
+    padding:10px 20px;border-radius:24px;font-weight:bold;opacity:0;transition:.3s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1}
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:60}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:420px;padding:22px;text-align:center}
+  .modal button{margin:0 6px;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-family:inherit}
+  .modal .ok{background:var(--red);color:#fff}.modal .cancel{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .rodape{text-align:center;margin-top:24px}
+  .rodape a{text-decoration:none;background:var(--teal);color:#0f1720;font-weight:bold;padding:12px 26px;
+    border-radius:30px;font-family:"Courier New",monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>🎯 Quiz Relâmpago</h1>
+    <p class="sub">18 questões objetivas · Pronome relativo + Oração adjetiva</p>
+  </header>
+  <nav class="nav">
+    <a href="leitura-guiada.html">📖 Leitura</a>
+    <a class="here" href="quiz.html">🎯 Quiz</a>
+    <a href="resumo.html">🗺️ Resumo</a>
+    <a href="simulado.html">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+  <div class="painel">
+    <span class="info" id="painelInfo">Progresso salvo automaticamente.</span>
+    <span>
+      <button onclick="exportar()">📥 Exportar</button>
+      <button onclick="document.getElementById('imp').click()">📤 Importar</button>
+      <button onclick="pedirZerar()">🗑️ Zerar</button>
+      <input type="file" id="imp" accept=".json" style="display:none" onchange="importar(event)">
+    </span>
+  </div>
+  <div class="prog-wrap"><div class="prog" id="prog"></div></div>
+
+  <div class="resultado" id="resultado">
+    <div class="nota" id="nota"></div>
+    <p>Guarde este código para liberar o gabarito depois (e mostrar para a mãe):</p>
+    <div class="codigo" id="codigo"></div>
+    <p id="msgNota" style="color:#c9b48a"></p>
+  </div>
+
+  <div id="quiz"></div>
+
+  <div class="barra">
+    <button class="enviar" id="enviar" onclick="enviar()" disabled>Enviar respostas 🔒</button>
+  </div>
+
+  <div class="rodape" id="rodape" style="display:none">
+    <p style="color:var(--teal)">Missão cumprida! Agora feche as lacunas no Resumo:</p>
+    <a href="resumo.html">🗺️ Ir para o Resumo →</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="modal-bg" id="modalBg"><div class="modal"><p id="modalTxt"></p>
+  <button class="ok" id="modalOk">Sim</button><button class="cancel" onclick="fecharModal()">Cancelar</button></div></div>
+
+<script>
+/* ---------- Armazenamento seguro ---------- */
+var MEM={},KEY="quiz_port9_arquivo_v1";
+function loadState(){try{var s=localStorage.getItem(KEY);return s?JSON.parse(s):{};}catch(e){return MEM[KEY]?JSON.parse(MEM[KEY]):{};}}
+function saveState(st){var s=JSON.stringify(st);try{localStorage.setItem(KEY,s);}catch(e){MEM[KEY]=s;}atualizaPainel();}
+var state=loadState();
+if(!state.resp)state.resp={};
+if(state.enviado===undefined)state.enviado=false;
+
+/* ---------- Banco de questões (c:true = alternativa correta) ---------- */
+var QS=[
+ {cap:"Cap.17",q:"O que faz, principalmente, um pronome relativo numa frase?",
+  o:[{t:"Retoma um nome já citado (o antecedente) e liga duas orações, evitando repetição.",c:true},
+     {t:"Indica a ação principal do sujeito.",e:"Quem indica ação é o verbo, não o pronome relativo."},
+     {t:"Substitui apenas verbos no passado.",e:"Pronome relativo substitui nomes, não verbos."},
+     {t:"Serve só para fazer perguntas.",e:"Esse é o pronome interrogativo, não o relativo."}]},
+ {cap:"Cap.17",q:"Assinale a alternativa que contém APENAS pronomes relativos invariáveis:",
+  o:[{t:"que, quem, onde, quando",c:true},
+     {t:"o qual, cujo, quanto",e:"Esses são todos variáveis (mudam de gênero/número)."},
+     {t:"cuja, os quais, quantas",e:"Todos variáveis."},
+     {t:"que, cujo, o qual",e:"'cujo' e 'o qual' são variáveis."}]},
+ {cap:"Cap.17",q:"Em qual frase o pronome 'onde' está EMPREGADO CORRETAMENTE?",
+  o:[{t:"A cidade onde nasci foi destruída pela guerra.",c:true},
+     {t:"Foi um tempo onde tudo mudou.",e:"'onde' não vale para tempo; use 'em que'."},
+     {t:"O livro onde li isso é ótimo.",e:"'onde' não vale para coisa; use 'em que / no qual'."},
+     {t:"A reunião onde participei foi longa.",e:"'participar de' não é lugar; use 'de que / da qual'."}]},
+ {cap:"Cap.17",q:"Na frase 'O país cujas fronteiras foram fechadas sofreu', com qual palavra 'cujas' concorda?",
+  o:[{t:"Com 'fronteiras' (a coisa possuída, que vem depois).",c:true},
+     {t:"Com 'país' (o dono).",e:"'cujo' concorda com o possuído, não com o dono."},
+     {t:"Com 'sofreu'.",e:"Concordância de pronome relativo é com nome, não com verbo."},
+     {t:"Com o sujeito da oração principal sempre.",e:"Não; concorda com o termo possuído seguinte."}]},
+ {cap:"Cap.17",q:"Qual frase apresenta ERRO no uso de 'cujo'?",
+  o:[{t:"A autora cuja a obra é famosa nasceu em 1929.",c:true,x:true},
+     {t:"A autora cuja obra é famosa nasceu em 1929.",e:"Esta está correta: 'cuja' sem artigo depois."},
+     {t:"O soldado cujo diário sumiu chorou.",e:"Correta: 'cujo diário', sem artigo."},
+     {t:"O país cujas guerras marcaram o século.",e:"Correta: 'cujas' concorda com 'guerras'."}],
+  expl:"'cujo/cuja' NUNCA vem seguido de artigo. 'cuja a obra' está errado; o certo é 'cuja obra'."},
+ {cap:"Cap.17",q:"Complete corretamente: 'Aquele é o superior ____ o soldado desobedeceu.'",
+  o:[{t:"a quem",c:true},
+     {t:"quem",e:"'quem' pede preposição antes; sozinho fica errado aqui."},
+     {t:"onde",e:"'onde' é para lugar, não pessoa."},
+     {t:"cujo",e:"'cujo' indica posse, não é o caso."}]},
+ {cap:"Cap.17",q:"Em 'Lembro do ano quando a guerra acabou', a palavra 'quando' é:",
+  o:[{t:"pronome relativo, pois tem antecedente ('ano') e equivale a 'em que'.",c:true},
+     {t:"conjunção temporal, pois não retoma nome nenhum.",e:"Aqui há o antecedente 'ano', então é pronome relativo."},
+     {t:"advérbio de lugar.",e:"'quando' não indica lugar."},
+     {t:"preposição.",e:"'quando' não é preposição."}]},
+ {cap:"Cap.17",q:"Qual pronome relativo é mais adequado para desfazer a ambiguidade em 'Vi o museu da cidade ___ Anne se escondeu'? (o esconderijo foi na CIDADE)",
+  o:[{t:"na qual",c:true},
+     {t:"onde",e:"'onde' serve para os dois lugares e mantém a dúvida."},
+     {t:"cujo",e:"'cujo' indica posse, não resolve a ambiguidade."},
+     {t:"que",e:"'que' aqui não deixa claro o lugar."}]},
+ {cap:"Cap.17",q:"Assinale a frase em que 'que' é PRONOME RELATIVO:",
+  o:[{t:"O diário que a menina escreveu emociona.",c:true},
+     {t:"Ela disse que voltaria logo.",e:"Aqui 'que' é conjunção integrante (introduz oração substantiva)."},
+     {t:"Que dia lindo!",e:"Aqui 'que' é palavra exclamativa/intensificadora."},
+     {t:"Estudou tanto que passou.",e:"Aqui 'que' é conjunção consecutiva."}]},
+ {cap:"Cap.17",q:"Qual é a correção adequada para 'O jogo onde assisti foi emocionante'?",
+  o:[{t:"O jogo a que assisti foi emocionante.",c:true},
+     {t:"O jogo onde eu assisti foi emocionante.",e:"Continua errado: 'onde' não vale para 'jogo' (coisa)."},
+     {t:"O jogo cujo assisti foi emocionante.",e:"'cujo' indica posse; não cabe aqui."},
+     {t:"O jogo quem assisti foi emocionante.",e:"'quem' é para pessoas."}]},
+ {cap:"Cap.18",q:"A oração subordinada adjetiva tem valor equivalente a qual classe de palavra?",
+  o:[{t:"Adjetivo (caracteriza um substantivo).",c:true},
+     {t:"Advérbio.",e:"Quem tem valor de advérbio é a adverbial, não a adjetiva."},
+     {t:"Substantivo.",e:"Valor de substantivo é da oração substantiva."},
+     {t:"Verbo.",e:"A adjetiva caracteriza um nome, como um adjetivo."}]},
+ {cap:"Cap.18",q:"Em 'O museu que reconstrói cenas do Holocausto fica em SP', a oração adjetiva é:",
+  o:[{t:"'que reconstrói cenas do Holocausto', e caracteriza 'museu'.",c:true},
+     {t:"'fica em SP'.",e:"Essa é a parte da oração principal, não a adjetiva."},
+     {t:"'O museu'.",e:"Esse é o sujeito, não a oração adjetiva."},
+     {t:"'do Holocausto'.",e:"Isso é apenas um adjunto, não a oração inteira."}]},
+ {cap:"Cap.18",q:"A oração adjetiva DESENVOLVIDA caracteriza-se por:",
+  o:[{t:"ter conectivo (pronome relativo) e verbo conjugado.",c:true},
+     {t:"não ter conectivo e usar o verbo no gerúndio.",e:"Isso descreve a reduzida, não a desenvolvida."},
+     {t:"nunca ter verbo.",e:"Toda oração tem verbo."},
+     {t:"vir sempre entre aspas.",e:"Não há relação com aspas."}]},
+ {cap:"Cap.18",q:"Em 'Vi pessoas sofrendo com a guerra', a oração 'sofrendo com a guerra' é uma adjetiva reduzida de:",
+  o:[{t:"gerúndio (equivale a 'que sofrem').",c:true},
+     {t:"particípio.",e:"Particípio seria 'sofridas'; aqui é gerúndio ('sofrendo')."},
+     {t:"infinitivo.",e:"Infinitivo seria 'a sofrer'; aqui é gerúndio."},
+     {t:"não é oração reduzida.",e:"É sim: 'sofrendo' = 'que sofrem'."}]},
+ {cap:"Cap.18",q:"Transformando 'o museu inaugurado ontem' em desenvolvida, temos:",
+  o:[{t:"o museu que foi inaugurado ontem.",c:true},
+     {t:"o museu inaugurando ontem.",e:"Isso troca por gerúndio e muda o sentido; não é a desenvolvida correta."},
+     {t:"o museu cujo inaugurado ontem.",e:"'cujo' indica posse; não cabe."},
+     {t:"o museu onde inaugurado ontem.",e:"'onde' é lugar e a frase fica sem sentido."}]},
+ {cap:"Cap.18",q:"Em 'O homem, que semeia guerras, espalha destruição', a oração adjetiva é classificada como:",
+  o:[{t:"explicativa (vem entre vírgulas e generaliza: todo homem).",c:true},
+     {t:"restritiva (separa um grupo).",e:"Restritiva não tem vírgula; aqui há vírgulas."},
+     {t:"reduzida de infinitivo.",e:"Tem conectivo 'que' e verbo conjugado: é desenvolvida."},
+     {t:"substantiva.",e:"Caracteriza o nome 'homem': é adjetiva."}]},
+ {cap:"Cap.18",q:"Qual frase contém uma oração adjetiva RESTRITIVA?",
+  o:[{t:"Os alunos que estudaram passaram na prova.",c:true},
+     {t:"Meu pai, que é médico, viajou.",e:"Está entre vírgulas: é explicativa."},
+     {t:"Sarajevo, que fica na Bósnia, sofreu na guerra.",e:"Entre vírgulas: explicativa."},
+     {t:"Anne Frank, que morreu jovem, deixou um diário.",e:"Entre vírgulas: explicativa."}]},
+ {cap:"Cap.18",q:"Sobre a diferença entre explicativa e restritiva, é CORRETO afirmar:",
+  o:[{t:"A explicativa generaliza (fala do todo); a restritiva especifica (separa um grupo).",c:true},
+     {t:"As duas têm exatamente o mesmo sentido.",e:"Não: a vírgula muda o sentido."},
+     {t:"A restritiva sempre vem entre vírgulas.",e:"É o contrário: a restritiva NÃO leva vírgula."},
+     {t:"A classificação depende só do tamanho da oração.",e:"Depende do sentido e da pontuação, não do tamanho."}]}
+];
+
+/* ---------- Embaralhamento com semente fixa (por questão) ---------- */
+function seededShuffle(arr,seed){
+  var a=arr.slice(),m=a.length,t,i;
+  var s=seed;
+  function rnd(){s=(s*9301+49297)%233280;return s/233280;}
+  while(m){i=Math.floor(rnd()*m--);t=a[m];a[m]=a[i];a[i]=t;}
+  return a;
+}
+// prepara ordem estável: cada opção guarda id original; correta marcada por id
+QS.forEach(function(qq,qi){
+  qq.o.forEach(function(op,oi){op.id=oi; if(op.c)qq.correct=oi;});
+  qq.ordem=seededShuffle(qq.o.map(function(o){return o.id;}), qi*97+13);
+});
+
+/* ---------- Render ---------- */
+var cont=document.getElementById('quiz');
+QS.forEach(function(qq,qi){
+  var div=document.createElement('div'); div.className='q'; div.id='q'+qi;
+  var opts='';
+  qq.ordem.forEach(function(oid,pos){
+    var op=qq.o[oid];
+    var letra=String.fromCharCode(97+pos);
+    opts+=`<label class="opt" id="opt${qi}_${oid}" onclick="pick(${qi},${oid})">
+      <input type="radio" name="q${qi}" value="${oid}"><span class="letra">${letra})</span>${op.t}</label>`;
+  });
+  div.innerHTML=`<div class="cab">Questão ${qi+1}<span class="tag">${qq.cap}</span></div>
+    <div class="enun">${qq.q}</div>
+    <div class="opts">${opts}</div>
+    <div class="expl" id="expl${qi}"></div>`;
+  cont.appendChild(div);
+});
+
+function pick(qi,oid){
+  if(state.enviado)return;
+  state.resp['q'+qi]=oid;
+  document.querySelectorAll('#q'+qi+' .opt').forEach(function(x){x.classList.remove('sel');});
+  document.getElementById('opt'+qi+'_'+oid).classList.add('sel');
+  var r=document.querySelector('#q'+qi+' input[value="'+oid+'"]'); if(r)r.checked=true;
+  saveState(state); checkComplete();
+}
+function checkComplete(){
+  var n=Object.keys(state.resp).length;
+  document.getElementById('prog').style.width=(n/QS.length*100)+'%';
+  var btn=document.getElementById('enviar');
+  var full=(n===QS.length);
+  btn.disabled=!full || state.enviado;
+  btn.textContent=full?'Enviar respostas ✓':('Responda todas ('+n+'/'+QS.length+') 🔒');
+}
+
+/* ---------- Código MED ---------- */
+function gerarCodigo(acertos){
+  if(state.codigo)return state.codigo;
+  var L="ABCDEFGHJKLMNPQRSTUVWXYZ"; // sem I e O
+  var yy=L[Math.floor(Math.random()*L.length)]+L[Math.floor(Math.random()*L.length)];
+  var xx=(acertos<10?'0':'')+acertos;
+  state.codigo="MED-"+xx+"-"+yy;
+  return state.codigo;
+}
+
+function enviar(){
+  if(Object.keys(state.resp).length<QS.length)return;
+  state.enviado=true;
+  var acertos=0;
+  QS.forEach(function(qq,qi){
+    var sel=state.resp['q'+qi];
+    var div=document.getElementById('q'+qi);
+    div.querySelectorAll('.opt').forEach(function(x){x.style.pointerEvents='none';});
+    // marca correta e erros
+    var correta=qq.correct;
+    document.getElementById('opt'+qi+'_'+correta).classList.add('correct');
+    if(sel===correta){acertos++;}
+    else{ if(document.getElementById('opt'+qi+'_'+sel))document.getElementById('opt'+qi+'_'+sel).classList.add('wrong'); }
+    // explicação
+    var ex=document.getElementById('expl'+qi);
+    var texto='<b style="color:var(--green)">✔ Correta: '+letraDe(qi,correta)+') '+qq.o[correta].t+'</b>';
+    if(sel!==correta){
+      var opSel=qq.o[sel];
+      texto+='<br><span style="color:#b9c6d3">✘ Você marcou '+letraDe(qi,sel)+') — '+(opSel.e||'alternativa incorreta.')+'</span>';
+    }
+    if(qq.expl)texto+='<br><i style="color:var(--amber)">Dica: '+qq.expl+'</i>';
+    ex.className='expl show '+(sel===correta?'ok':'no');
+    ex.innerHTML=texto;
+  });
+  state.acertos=acertos;
+  var cod=gerarCodigo(acertos);
+  saveState(state);
+  mostrarResultado(acertos,cod);
+}
+function letraDe(qi,oid){
+  var pos=QS[qi].ordem.indexOf(oid);
+  return String.fromCharCode(97+pos);
+}
+function mostrarResultado(acertos,cod){
+  var box=document.getElementById('resultado'); box.classList.add('show');
+  document.getElementById('nota').textContent=acertos+' / '+QS.length+' acertos';
+  document.getElementById('codigo').textContent=cod;
+  var pct=acertos/QS.length;
+  var msg = pct>=0.8?'Excelente, arquivista! Você domina os diários. 🏆':
+            pct>=0.6?'Bom trabalho! Reveja o Resumo nos pontos que falharam. 💪':
+            'Vamos reforçar: volte à Leitura Guiada e ao Resumo antes do Simulado. 📚';
+  document.getElementById('msgNota').textContent=msg;
+  document.getElementById('enviar').disabled=true;
+  document.getElementById('enviar').textContent='Respostas enviadas ✓';
+  document.getElementById('rodape').style.display='block';
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+/* ---------- Restaurar ---------- */
+function restaurar(){
+  for(var k in state.resp){
+    var qi=parseInt(k.substring(1)); var oid=state.resp[k];
+    var el=document.getElementById('opt'+qi+'_'+oid);
+    if(el){el.classList.add('sel'); var r=el.querySelector('input'); if(r)r.checked=true;}
+  }
+  if(state.enviado){
+    // re-renderiza gabarito
+    QS.forEach(function(qq,qi){
+      var sel=state.resp['q'+qi]; var correta=qq.correct;
+      var div=document.getElementById('q'+qi);
+      div.querySelectorAll('.opt').forEach(function(x){x.style.pointerEvents='none';});
+      if(document.getElementById('opt'+qi+'_'+correta))document.getElementById('opt'+qi+'_'+correta).classList.add('correct');
+      if(sel!==correta && document.getElementById('opt'+qi+'_'+sel))document.getElementById('opt'+qi+'_'+sel).classList.add('wrong');
+      var ex=document.getElementById('expl'+qi);
+      var texto='<b style="color:var(--green)">✔ Correta: '+letraDe(qi,correta)+') '+qq.o[correta].t+'</b>';
+      if(sel!==correta){texto+='<br><span style="color:#b9c6d3">✘ Você marcou '+letraDe(qi,sel)+') — '+(qq.o[sel].e||'alternativa incorreta.')+'</span>';}
+      if(qq.expl)texto+='<br><i style="color:var(--amber)">Dica: '+qq.expl+'</i>';
+      ex.className='expl show '+(sel===correta?'ok':'no'); ex.innerHTML=texto;
+    });
+    mostrarResultado(state.acertos, state.codigo);
+  }
+  checkComplete();
+}
+
+/* ---------- Painel/util ---------- */
+function atualizaPainel(){var d=new Date();document.getElementById('painelInfo').textContent='Salvo às '+d.toLocaleTimeString('pt-BR')+' · '+d.toLocaleDateString('pt-BR');}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);}
+function exportar(){var b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='quiz-portugues9.json';a.click();}
+function importar(ev){var f=ev.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{state=JSON.parse(r.result);if(!state.resp)state.resp={};saveState(state);location.reload();}catch(e){toast('Arquivo inválido');}};r.readAsText(f);}
+function pedirZerar(){document.getElementById('modalTxt').textContent='Apagar todas as respostas do Quiz e recomeçar?';document.getElementById('modalBg').classList.add('show');
+  document.getElementById('modalOk').onclick=function(){state={resp:{},enviado:false};saveState(state);fecharModal();location.reload();};}
+function fecharModal(){document.getElementById('modalBg').classList.remove('show');}
+
+atualizaPainel();
+restaurar();
+</script>
+</body>
+</html>
