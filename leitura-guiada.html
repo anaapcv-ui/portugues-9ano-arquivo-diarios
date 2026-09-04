@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leitura Guiada · Português 9º ano · Arquivo dos Diários</title>
+<style>
+  :root{
+    --bg:#0f1720; --panel:#16212e; --panel2:#1d2b3a; --ink:#eae3d1;
+    --parch:#efe6cf; --parch2:#e6d9bb; --amber:#f0b84a; --amber2:#e0a83e;
+    --teal:#43c0b0; --teal2:#2f9c8f; --red:#e0655f; --reddark:#c0433d;
+    --green:#57b894; --line:#2c3d4f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(160deg,#0d141c,#111d29 60%,#0f1a24);
+    color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.65}
+  .wrap{max-width:880px;margin:0 auto;padding:20px 16px 80px}
+  header.top{text-align:center;padding:26px 16px;border:1px solid var(--line);
+    border-radius:16px;background:radial-gradient(circle at 50% 0%,#1c2c3d,#141f2b);
+    box-shadow:0 10px 30px rgba(0,0,0,.4);position:relative;overflow:hidden}
+  header.top:before{content:"✦ ARQUIVO DOS DIÁRIOS ✦";position:absolute;top:8px;left:0;right:0;
+    font-family:"Courier New",monospace;letter-spacing:4px;font-size:11px;color:var(--amber2);opacity:.7}
+  .badge{display:inline-block;margin-top:14px;font-family:"Courier New",monospace;font-size:12px;
+    letter-spacing:2px;color:#0f1720;background:var(--teal);padding:4px 12px;border-radius:20px}
+  h1{margin:.35em 0 .1em;font-size:26px;color:var(--amber)}
+  .sub{color:#b9c6d3;font-size:15px;font-style:italic;margin:0}
+  .painel{margin:18px 0;border:1px dashed var(--teal2);border-radius:12px;background:#12202b;
+    padding:12px 14px;font-size:13px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+  .painel .info{font-family:"Courier New",monospace;color:#9fd7cf}
+  .painel button{font-family:inherit;cursor:pointer;border:none;border-radius:8px;padding:7px 12px;
+    font-size:13px;background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .painel button:hover{background:#26384a}
+  .mapa{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+  .mapa .step{flex:1 1 120px;min-width:120px;text-align:center;border:1px solid var(--line);
+    border-radius:10px;padding:8px 6px;font-size:12px;background:#13212d;color:#8ea6b8}
+  .mapa .step.done{border-color:var(--teal2);color:var(--teal);background:#122a2a}
+  .mapa .step.cur{border-color:var(--amber2);color:var(--amber);background:#2a2413;box-shadow:0 0 0 2px rgba(240,184,74,.15)}
+  .nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 24px}
+  .nav a{text-decoration:none;font-size:13px;font-family:"Courier New",monospace;color:#0f1720;
+    background:var(--parch2);padding:6px 12px;border-radius:20px}
+  .nav a.here{background:var(--amber);font-weight:bold}
+  .bloco{border:1px solid var(--line);border-radius:16px;margin:18px 0;overflow:hidden;
+    background:var(--panel);box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .bloco.lock{opacity:.5;filter:grayscale(.4)}
+  .bloco .cab{background:linear-gradient(90deg,#123f38,#1a5c52);color:#eafff9;padding:12px 18px;
+    display:flex;align-items:center;gap:10px}
+  .bloco .cab .n{font-family:"Courier New",monospace;background:var(--amber);color:#0f1720;
+    width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
+  .bloco .cab h2{margin:0;font-size:19px}
+  .bloco .corpo{padding:18px 20px}
+  .bloco .corpo p{margin:.6em 0}
+  .lead{color:var(--amber);font-style:italic}
+  .exemplo{background:#12202b;border-left:4px solid var(--teal);padding:10px 14px;border-radius:8px;margin:12px 0}
+  .exemplo b{color:var(--amber)}
+  .destaque{color:var(--teal);font-weight:bold}
+  .lock-msg{padding:16px 20px;text-align:center;color:#8ea6b8;font-style:italic}
+  .perguntas{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+  .perguntas h3{font-size:15px;color:var(--amber2);margin:0 0 10px;font-family:"Courier New",monospace}
+  .q{margin:12px 0}
+  .q label{display:block;font-size:15px;margin-bottom:6px}
+  .q textarea{width:100%;min-height:60px;background:var(--parch);color:#26313a;border:1px solid var(--parch2);
+    border-radius:8px;padding:8px 10px;font-family:Georgia,serif;font-size:15px;resize:vertical}
+  .q textarea:focus{outline:2px solid var(--teal)}
+  .btn-conf{margin-top:8px;background:var(--amber);color:#0f1720;font-weight:bold;border:none;
+    padding:9px 18px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:15px}
+  .btn-conf:disabled{background:#3a4653;color:#7d8b98;cursor:not-allowed}
+  .modelo{margin-top:12px;display:none}
+  .modelo.show{display:block}
+  .modelo .card{background:#12261f;border:1px solid var(--teal2);border-radius:10px;padding:12px 14px;margin:8px 0}
+  .modelo .card b{color:var(--teal)}
+  .auto{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .auto button{border:1px solid var(--line);background:#13212d;color:var(--ink);border-radius:20px;
+    padding:6px 14px;cursor:pointer;font-family:inherit;font-size:13px}
+  .auto button.sel-ok{background:var(--green);color:#0f1720;border-color:var(--green)}
+  .auto button.sel-rev{background:var(--amber);color:#0f1720;border-color:var(--amber)}
+  .final{border:2px solid var(--reddark);border-radius:16px;background:#2a1414;padding:18px 20px;margin:26px 0}
+  .final h2{color:var(--red);margin-top:0}
+  .final ol{margin:0;padding-left:20px}
+  .final li{margin:7px 0}
+  table.cob{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+  table.cob th,table.cob td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+  table.cob th{background:#12202b;color:var(--amber)}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--teal);color:#0f1720;
+    padding:10px 20px;border-radius:24px;font-family:inherit;font-weight:bold;opacity:0;transition:.3s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1}
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:60}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:420px;padding:22px;text-align:center}
+  .modal p{margin:0 0 16px}
+  .modal button{margin:0 6px;padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;font-size:14px}
+  .modal .ok{background:var(--red);color:#fff}
+  .modal .cancel{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+  .rodape{margin-top:30px;text-align:center}
+  .rodape a{display:inline-block;text-decoration:none;background:var(--teal);color:#0f1720;font-weight:bold;
+    padding:12px 26px;border-radius:30px;font-family:"Courier New",monospace}
+  .prog-wrap{height:10px;background:#13212d;border-radius:10px;overflow:hidden;margin:6px 0 2px;border:1px solid var(--line)}
+  .prog{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--amber));transition:.4s}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="badge">MISSÃO · DECIFRAR OS DIÁRIOS</span>
+    <h1>📖 Leitura Guiada</h1>
+    <p class="sub">Português · 9º ano · Cap. 17 (Pronome relativo) + Cap. 18 (Oração subordinada adjetiva)</p>
+    <p class="sub" style="font-size:13px;color:#8ea6b8">Prova: 08/09 · Colégio Coração Feliz</p>
+  </header>
+
+  <nav class="nav">
+    <a class="here" href="leitura-guiada.html">📖 Leitura</a>
+    <a href="quiz.html">🎯 Quiz</a>
+    <a href="resumo.html">🗺️ Resumo</a>
+    <a href="simulado.html">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="painel">
+    <span class="info" id="painelInfo">Progresso salvo automaticamente.</span>
+    <span>
+      <button onclick="exportar()">📥 Exportar</button>
+      <button onclick="document.getElementById('imp').click()">📤 Importar</button>
+      <button onclick="pedirZerar()">🗑️ Zerar tudo</button>
+      <input type="file" id="imp" accept=".json" style="display:none" onchange="importar(event)">
+    </span>
+  </div>
+  <div class="prog-wrap"><div class="prog" id="prog"></div></div>
+  <div class="mapa" id="mapa"></div>
+
+  <p style="text-align:center;color:#9fd7cf;font-style:italic;font-size:14px">
+    Jovem aprendiz, você é o(a) <b>Arquivista-Decifrador(a)</b>. Cada bloco restaura um pedaço dos
+    diários de guerra — e só abre depois que você conferir o anterior. Escreva suas respostas nas caixas
+    (não vale só ler!). Vamos lá. 🔎</p>
+
+  <div id="blocos"></div>
+
+  <div class="final" id="final" style="display:none">
+    <h2>🚨 Sala das Pegadinhas — 10 armadilhas que derrubam na prova</h2>
+    <ol>
+      <li><b>"onde" só serve para LUGAR.</b> "A época <s>onde</s> vivi" está errado → use "<b>em que</b>". "O jogo <s>onde</s> assisti" → "<b>a que / ao qual</b> assisti".</li>
+      <li><b>"cujo" NUNCA vem com artigo depois.</b> "<s>cuja a</s> vida" está errado. É só "<b>cuja vida</b>".</li>
+      <li><b>"cujo" concorda com o que vem DEPOIS</b> (a coisa possuída), não com o dono. "O país <b>cujas</b> guerras..." (guerras = feminino plural).</li>
+      <li><b>Vírgula muda tudo na adjetiva.</b> Com vírgula = <b>explicativa</b> (fala de todos). Sem vírgula = <b>restritiva</b> (separa um grupo). Trocar isso muda o sentido.</li>
+      <li><b>Explicativa isolada por vírgula; restritiva sem vírgula nenhuma.</b> Não "meia" vírgula: ou põe as duas, ou nenhuma.</li>
+      <li><b>Oração adjetiva sempre caracteriza um substantivo</b> (vale por um adjetivo). Se não caracteriza nome nenhum, não é adjetiva.</li>
+      <li><b>"quem" pede pessoa</b> e quase sempre vem com preposição: "o superior <b>a quem</b> desobedeceu" (não "o superior <s>quem</s> desobedeceu").</li>
+      <li><b>Depois de preposição longa, prefira "o qual/a qual".</b> "a bandeja <b>na qual</b>..." soa melhor que "em que" e evita ambiguidade.</li>
+      <li><b>Reduzida não tem conectivo.</b> "pessoas <b>sofrendo</b>" (gerúndio) = "que sofrem". "museu <b>inaugurado</b>" (particípio) = "que foi inaugurado".</li>
+      <li><b>"quando" e "onde" nem sempre são pronome relativo.</b> Só são se tiverem antecedente (um nome antes). Sem antecedente, viram conjunção/advérbio.</li>
+    </ol>
+    <h3 style="color:var(--amber);font-family:'Courier New',monospace">🗺️ Cobertura — Tópico → Bloco</h3>
+    <table class="cob">
+      <tr><th>Tópico do escopo (Cap. 17 e 18)</th><th>Bloco</th></tr>
+      <tr><td>O que é pronome relativo / evitar repetição</td><td>Bloco 1</td></tr>
+      <tr><td>Relativos variáveis e invariáveis (tabela)</td><td>Bloco 2</td></tr>
+      <tr><td>Usos de "que", "quem" e "onde"</td><td>Bloco 3</td></tr>
+      <tr><td>"Cujo" — o pronome da posse</td><td>Bloco 4</td></tr>
+      <tr><td>"O qual / a qual" e "quando" (preposição, ambiguidade)</td><td>Bloco 5</td></tr>
+      <tr><td>Oração subordinada adjetiva — função e forma</td><td>Bloco 6</td></tr>
+      <tr><td>Adjetivas desenvolvidas e reduzidas</td><td>Bloco 7</td></tr>
+      <tr><td>Adjetivas explicativas × restritivas</td><td>Bloco 8</td></tr>
+    </table>
+  </div>
+
+  <div class="rodape" id="rodapeFinal" style="display:none">
+    <p style="color:var(--teal)">Arquivo restaurado! Próxima missão:</p>
+    <a href="quiz.html">🎯 Ir para o Quiz →</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <p id="modalTxt"></p>
+    <button class="ok" id="modalOk">Sim, zerar</button>
+    <button class="cancel" onclick="fecharModal()">Cancelar</button>
+  </div>
+</div>
+
+<script>
+/* ---------- Armazenamento seguro (try/catch + memória de reserva) ---------- */
+var MEM={};
+var KEY="lg_port9_arquivo_v1";
+function loadState(){
+  try{var s=localStorage.getItem(KEY);return s?JSON.parse(s):{};}
+  catch(e){return MEM[KEY]?JSON.parse(MEM[KEY]):{};}
+}
+function saveState(st){
+  var s=JSON.stringify(st);
+  try{localStorage.setItem(KEY,s);}catch(e){MEM[KEY]=s;}
+  atualizaPainel();
+}
+var state=loadState();
+if(!state.resp)state.resp={};
+if(!state.auto)state.auto={};
+if(!state.done)state.done={};
+
+/* ---------- Conteúdo dos blocos ---------- */
+var BLOCOS=[
+ {t:"O que é um pronome relativo?",
+  html:`<p class="lead">Missão de abertura: entender a "cola" que liga as frases.</p>
+   <p>Imagine que você escreve um diário de guerra, como a Zlata. Se repetir a mesma palavra o tempo todo, o texto fica pobre: <i>"O país entrou em guerra. Eu nasci nesse país."</i> Percebe como "país" aparece duas vezes?</p>
+   <p>O <span class="destaque">pronome relativo</span> resolve isso: ele <b>retoma um nome já dito</b> e junta as duas frases numa só, sem repetir. Fica assim: <i>"O país <b>onde</b> nasci entrou em guerra."</i> O "onde" substituiu "nesse país".</p>
+   <p>Ou seja, o pronome relativo tem duas funções ao mesmo tempo: <b>evita a repetição</b> e <b>conecta orações</b>. A palavra que ele retoma (o "país", no exemplo) chama-se <span class="destaque">antecedente</span> — porque vem antes dele.</p>
+   <div class="exemplo"><b>Guarde:</b> pronome relativo = palavra que retoma um <b>nome anterior (antecedente)</b> e liga duas orações, evitando repetição.</div>`,
+  q:["Com suas palavras, para que serve um pronome relativo?",
+     "Na frase 'O diário que a Zlata escreveu emociona', qual é o antecedente do 'que'?",
+     "Reescreva sem repetição: 'A menina escreveu um diário. O diário virou livro.'"],
+  m:["Ele retoma um nome que já apareceu (o antecedente) e liga duas orações numa só, evitando repetir a mesma palavra.",
+     "O antecedente é 'diário' — é o nome que o 'que' retoma.",
+     "'A menina escreveu um diário que virou livro.' O 'que' retoma 'diário' e evita a repetição."]},
+
+ {t:"Os pronomes relativos: variáveis e invariáveis",
+  html:`<p class="lead">Agora o mapa completo das "chaves" que ligam as frases.</p>
+   <p>Os pronomes relativos se dividem em dois grupos. Os <span class="destaque">variáveis</span> mudam de forma conforme o gênero (masculino/feminino) e o número (singular/plural): <b>o qual, a qual, os quais, as quais</b>; <b>cujo, cuja, cujos, cujas</b>; <b>quanto, quanta, quantos, quantas</b>.</p>
+   <p>Os <span class="destaque">invariáveis</span> têm sempre a mesma forma, não importa o gênero nem o número: <b>que, quem, onde, como, quando</b>.</p>
+   <p>O mais usado de todos é o <b>"que"</b> — serve para pessoas e coisas. Mas cada um tem seu "jeito certo" de usar, e é aí que moram as pegadinhas da prova. Nos próximos blocos, você vai destravar cada chave.</p>
+   <div class="exemplo"><b>Variáveis:</b> o qual · cujo · quanto (e suas variações). <br><b>Invariáveis:</b> que · quem · onde · como · quando.</div>`,
+  q:["Qual é a diferença entre pronome relativo variável e invariável?",
+     "Classifique em variável ou invariável: 'cujo', 'que', 'a qual', 'onde'.",
+     "Qual pronome relativo é o mais usado e serve tanto para pessoas quanto para coisas?"],
+  m:["Os variáveis mudam conforme gênero e número (o qual, cujo, quanto...). Os invariáveis têm forma fixa (que, quem, onde, como, quando).",
+     "'cujo' = variável; 'que' = invariável; 'a qual' = variável; 'onde' = invariável.",
+     "É o 'que' — serve para pessoas e coisas."]},
+
+ {t:'Usando "que", "quem" e "onde"',
+  html:`<p class="lead">Três chaves muito cobradas — e cada uma com sua regra.</p>
+   <p><b>"que"</b> é o coringa: retoma pessoas ou coisas. <i>"O museu <b>que</b> reconstrói cenas do Holocausto fica em São Paulo."</i></p>
+   <p><b>"quem"</b> refere-se só a <b>pessoas</b> e quase sempre aparece <b>com uma preposição</b> na frente (a quem, de quem, por quem). <i>"O superior <b>a quem</b> desobedeceu ficou bravo."</i> Escrever "o superior quem desobedeceu" (sem a preposição) é erro.</p>
+   <p><b>"onde"</b> tem uma regra de ouro: só serve para <span class="destaque">lugar</span>. <i>"A cidade <b>onde</b> nasci."</i> ✔ Mas <i>"a época <b>onde</b> vivi"</i> ✘ está errado, porque época é tempo, não lugar — o certo é "<b>em que</b>". O mesmo vale para coisas: "o jogo <b>onde</b> assisti" ✘ → "o jogo <b>a que</b> assisti" ✔.</p>
+   <div class="exemplo"><b>Pegadinha clássica:</b> "onde" para tempo ou coisa. Troque por <b>"em que", "a que", "no qual"</b>.</div>`,
+  q:["Por que a frase 'A época onde eu vivi era difícil' está errada? Como corrigir?",
+     "O pronome 'quem' se refere a quê, e o que quase sempre vem antes dele?",
+     "Complete corretamente: 'O rapaz ____ desobedeceu ao superior fugiu.' (que / a quem)"],
+  m:["Está errada porque 'onde' só vale para lugar, e 'época' é tempo. Correção: 'A época em que eu vivi era difícil.'",
+     "Refere-se a pessoas, e quase sempre vem com uma preposição na frente (a quem, de quem, por quem).",
+     "'O rapaz que desobedeceu ao superior fugiu.' (Aqui 'que' é sujeito; 'a quem' seria usado se fosse 'o superior a quem ele desobedeceu'.)"]},
+
+ {t:'"Cujo": o pronome da posse',
+  html:`<p class="lead">A chave mais temida — mas fácil quando você pega o truque.</p>
+   <p>O <b>"cujo"</b> (e cuja, cujos, cujas) indica <span class="destaque">posse</span>: ele liga o dono à coisa que é dele. <i>"Anne Frank, <b>cujo</b> diário virou livro..."</i> = o diário <b>de</b> Anne Frank.</p>
+   <p>Regra de ouro nº 1: <b>"cujo" concorda com o que vem DEPOIS dele</b> (a coisa possuída), não com o dono. Em <i>"o país <b>cujas</b> guerras..."</i>, ele fica no feminino plural porque combina com "guerras", e não com "país".</p>
+   <p>Regra de ouro nº 2: <b>"cujo" NUNCA vem seguido de artigo</b>. "<s>cuja a</s> vida" está errado — é só "<b>cuja vida</b>". Se você viu "cujo o", "cuja a", pode marcar como erro na hora.</p>
+   <div class="exemplo"><b>Anne Frank, cujas palavras emocionam o mundo.</b> → "cujas" concorda com "palavras" (fem. plural), e não vem artigo depois.</div>`,
+  q:["O 'cujo' concorda em gênero e número com qual palavra: a do dono ou a da coisa possuída?",
+     "Por que 'A autora cuja a obra é famosa' está errado?",
+     "Complete: 'O soldado ____ carta se perdeu chorou.' (cujo / cuja / cujos / cujas — escolha e explique)"],
+  m:["Concorda com a coisa possuída, que vem depois dele. Em 'cujas guerras', combina com 'guerras'.",
+     "Porque 'cujo/cuja' nunca é seguido de artigo. O certo é 'A autora cuja obra é famosa'.",
+     "'cuja' — porque concorda com 'carta' (feminino singular): 'O soldado cuja carta se perdeu chorou.'"]},
+
+ {t:'"O qual", "quando" e a fuga da ambiguidade',
+  html:`<p class="lead">Chaves finas para não deixar a frase confusa.</p>
+   <p>O <b>"o qual / a qual"</b> costuma aparecer <b>depois de preposição</b>, principalmente quando "que" ficaria estranho. <i>"A bandeja <b>na qual</b> deixavam os cartões."</i> Ele também <span class="destaque">desfaz ambiguidade</span>: em <i>"Visitamos o museu da cidade <b>na qual</b> Anne ficou escondida"</i>, o "na qual" (feminino) deixa claro que foi na cidade, e não no museu.</p>
+   <p>Repare: "onde" não desfaz essa dúvida, porque serve para os dois lugares. Por isso, quando há dois lugares na frase, o pronome variável (no qual / na qual) é mais seguro.</p>
+   <p>Já o <b>"quando"</b> pode ser <b>duas coisas</b>: é <span class="destaque">pronome relativo</span> se tiver um antecedente nominal e puder virar "em que" (<i>"o ano <b>quando</b> = em que nasci"</i>); mas é <b>conjunção temporal</b> se apenas inicia uma ideia de tempo, sem retomar um nome (<i>"<b>Quando</b> a guerra acabou, voltamos."</i>).</p>
+   <div class="exemplo"><b>Teste do "quando":</b> dá para trocar por "em que" e tem um nome antes? É pronome relativo. Se não, é conjunção.</div>`,
+  q:["Em 'A sala na qual entrei era escura', por que se usou 'na qual' e não só 'que'?",
+     "Como saber se 'quando' é pronome relativo ou conjunção temporal?",
+     "Na frase 'Visitamos o museu da cidade na qual Anne se escondeu', o esconderijo foi no museu ou na cidade? Por quê?"],
+  m:["Porque 'entrar' pede a preposição 'em' (entrar EM), e com preposição usa-se 'na qual'. Também soa mais claro que 'que'.",
+     "É pronome relativo se tem um nome (antecedente) antes e pode virar 'em que'. É conjunção se só introduz uma ideia de tempo, sem retomar nome.",
+     "Na cidade — porque 'na qual' está no feminino e combina com 'cidade', desfazendo a ambiguidade com 'museu' (masculino)."]},
+
+ {t:"Oração subordinada adjetiva: função e forma",
+  html:`<p class="lead">Virada de capítulo (Cap. 18): quando a oração inteira vira um adjetivo.</p>
+   <p>Até agora vimos o pronome relativo sozinho. Agora veja a oração inteira que ele abre. A <span class="destaque">oração subordinada adjetiva</span> é aquela que <b>caracteriza um substantivo</b> — ou seja, funciona como um adjetivo, mas em forma de oração.</p>
+   <p>Compare: <i>"Ali está a foto de Anne Frank, a garota <b>famosa</b>."</i> ("famosa" é adjetivo). Agora: <i>"Ali está a foto de Anne Frank, a garota <b>que ficou famosa por causa de seu diário</b>."</i> A parte em negrito é uma oração inteira, mas faz o mesmo papel de "famosa": descreve a garota.</p>
+   <p>Sobre a <b>forma</b>: a oração adjetiva <b>intercala-se</b> na oração principal e é sempre introduzida por um <b>pronome relativo</b> (que, onde, o qual, cujo...). Ela depende da principal para ter sentido completo — sozinha, não fica de pé.</p>
+   <div class="exemplo"><b>Pista de reconhecimento:</b> tem verbo + começa com pronome relativo + descreve um nome = oração subordinada adjetiva.</div>`,
+  q:["O que a oração subordinada adjetiva faz na frase (qual é a função dela)?",
+     "Na frase 'O museu que reconstrói cenas do Holocausto fica em SP', qual é a oração adjetiva e que nome ela caracteriza?",
+     "Toda oração adjetiva começa com qual tipo de palavra?"],
+  m:["Ela caracteriza um substantivo, funcionando como um adjetivo — só que em forma de oração.",
+     "A oração adjetiva é 'que reconstrói cenas do Holocausto', e ela caracteriza o nome 'museu'.",
+     "Começa sempre com um pronome relativo (que, quem, onde, o qual, cujo, quando...)."]},
+
+ {t:"Adjetivas desenvolvidas e reduzidas",
+  html:`<p class="lead">A mesma ideia em duas roupas diferentes.</p>
+   <p>A oração adjetiva pode aparecer de dois jeitos. A <span class="destaque">desenvolvida</span> tem <b>conectivo (pronome relativo) + verbo conjugado</b>: <i>"Visitei o museu <b>que foi inaugurado</b> em São Paulo."</i></p>
+   <p>A <span class="destaque">reduzida</span> não tem conectivo e o verbo aparece numa forma nominal (particípio, gerúndio ou infinitivo). Ela diz a mesma coisa, mais enxuta:</p>
+   <p>• <b>Reduzida de particípio:</b> <i>"o museu <b>inaugurado</b>..."</i> = "que foi inaugurado".<br>
+      • <b>Reduzida de gerúndio:</b> <i>"pessoas <b>sofrendo</b> com a guerra"</i> = "que sofreram".<br>
+      • <b>Reduzida de infinitivo:</b> <i>"situações <b>de arrepiar</b>"</i> = "que arrepiam".</p>
+   <p>Para transformar reduzida em desenvolvida, é só devolver o pronome relativo e conjugar o verbo. Isso cai muito na prova.</p>
+   <div class="exemplo"><b>Truque:</b> se dá para trocar a palavra por "que + verbo", é uma adjetiva reduzida disfarçada.</div>`,
+  q:["Qual a diferença entre uma adjetiva desenvolvida e uma reduzida?",
+     "Transforme em desenvolvida: 'Vi refugiados abandonados pela sorte.' (dica: abandonados = particípio)",
+     "Que forma do verbo aparece em cada tipo de reduzida (particípio, gerúndio, infinitivo)? Dê o começo de um exemplo."],
+  m:["A desenvolvida tem conectivo (pronome relativo) e verbo conjugado; a reduzida não tem conectivo e usa o verbo no particípio, gerúndio ou infinitivo.",
+     "'Vi refugiados que foram abandonados pela sorte.' (devolvemos o 'que' e conjugamos o verbo).",
+     "Particípio: 'museu inaugurado' (= que foi inaugurado). Gerúndio: 'pessoas sofrendo' (= que sofrem). Infinitivo: 'situações de arrepiar' (= que arrepiam)."]},
+
+ {t:"Adjetivas explicativas × restritivas",
+  html:`<p class="lead">O bloco decisivo: uma vírgula muda o sentido da frase inteira.</p>
+   <p>As orações adjetivas se classificam em duas. A <span class="destaque">explicativa</span> só acrescenta uma informação já esperada ou geral sobre o nome, e vem <b>isolada por vírgulas</b>: <i>"O homem, <b>que semeia guerras</b>, espalha a própria destruição."</i> Aqui, a ideia é que <b>todo</b> homem faz isso.</p>
+   <p>A <span class="destaque">restritiva</span> <b>delimita, separa um grupo</b> dentro do todo, e vem <b>sem vírgula nenhuma</b>: <i>"O homem <b>que semeia guerras</b> espalha a própria destruição."</i> Agora, só <b>esse tipo</b> de homem sofre a consequência — não todos.</p>
+   <p>Repare: as palavras são idênticas; o que muda é a vírgula — e com ela, o sentido. Por isso o livro avisa: não decore só "vírgula sim / vírgula não". Pense no <b>sentido</b>: você quer <b>generalizar</b> (explicativa) ou <b>especificar</b> (restritiva)?</p>
+   <div class="exemplo"><b>Resumo de ouro:</b> vírgula = explicativa = generaliza. Sem vírgula = restritiva = especifica um grupo.</div>`,
+  q:["Qual a diferença de sentido entre 'Os alunos, que estudaram, passaram' e 'Os alunos que estudaram passaram'?",
+     "A oração adjetiva explicativa vem isolada por qual sinal de pontuação? E a restritiva?",
+     "Segundo o livro, a classificação não deve se basear só na vírgula, mas em quê?"],
+  m:["Na 1ª (com vírgula, explicativa), TODOS os alunos estudaram e todos passaram. Na 2ª (sem vírgula, restritiva), só passaram os alunos que estudaram — os outros não.",
+     "A explicativa vem entre vírgulas; a restritiva não leva vírgula nenhuma.",
+     "No sentido que se quer construir: generalizar (explicativa) ou especificar/restringir um grupo (restritiva)."]}
+];
+
+/* ---------- Render ---------- */
+var cont=document.getElementById('blocos');
+BLOCOS.forEach(function(b,i){
+  var div=document.createElement('div');
+  div.className='bloco'; div.id='b'+i;
+  var qhtml='';
+  b.q.forEach(function(qt,j){
+    qhtml+=`<div class="q">
+      <label>${j+1}) ${qt}</label>
+      <textarea id="r${i}_${j}" oninput="onType(${i})"></textarea>
+    </div>`;
+  });
+  var modelo='';
+  b.m.forEach(function(mt,j){
+    modelo+=`<div class="card"><b>Resposta modelo ${j+1}:</b> ${mt}</div>`;
+  });
+  div.innerHTML=`
+    <div class="cab"><span class="n">${i+1}</span><h2>${b.t}</h2></div>
+    <div class="corpo">
+      <div class="conteudo">${b.html}</div>
+      <div class="perguntas">
+        <h3>✍️ Sua vez — escreva as 3 respostas</h3>
+        ${qhtml}
+        <button class="btn-conf" id="conf${i}" onclick="conferir(${i})" disabled>Conferir respostas 🔒</button>
+        <div class="modelo" id="mod${i}">
+          <p style="color:var(--teal);font-weight:bold">✅ Confira com as respostas modelo:</p>
+          ${modelo}
+          <p style="margin-top:10px">Como você foi neste bloco?</p>
+          <div class="auto">
+            <button onclick="autoAval(${i},'ok',this)">✅ Acertei</button>
+            <button onclick="autoAval(${i},'rev',this)">🔁 Preciso revisar</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  cont.appendChild(div);
+});
+
+function onType(i){
+  var ok=true;
+  for(var j=0;j<3;j++){
+    var v=(document.getElementById('r'+i+'_'+j).value||'').trim();
+    if(!state.resp['r'+i+'_'+j]===undefined){}
+    state.resp['r'+i+'_'+j]=document.getElementById('r'+i+'_'+j).value;
+    if(v.length<3)ok=false;
+  }
+  var btn=document.getElementById('conf'+i);
+  btn.disabled=!ok;
+  btn.textContent=ok?'Conferir respostas ✓':'Conferir respostas 🔒';
+  saveState(state);
+}
+
+function conferir(i){
+  document.getElementById('mod'+i).classList.add('show');
+  state.done['b'+i]=true;
+  saveState(state);
+  desbloqueia();
+  toast('Bloco '+(i+1)+' conferido! 🔓');
+  if(document.getElementById('b'+(i+1))){
+    setTimeout(function(){document.getElementById('b'+(i+1)).scrollIntoView({behavior:'smooth',block:'start'});},400);
+  }
+}
+
+function autoAval(i,val,el){
+  state.auto['b'+i]=val;
+  saveState(state);
+  var parent=el.parentNode;
+  parent.querySelectorAll('button').forEach(function(x){x.classList.remove('sel-ok','sel-rev');});
+  el.classList.add(val==='ok'?'sel-ok':'sel-rev');
+}
+
+function desbloqueia(){
+  BLOCOS.forEach(function(b,i){
+    var div=document.getElementById('b'+i);
+    var liberado = (i===0) || state.done['b'+(i-1)];
+    var inputs=div.querySelectorAll('textarea,button');
+    if(liberado){
+      div.classList.remove('lock');
+      div.style.pointerEvents='';
+      inputs.forEach(function(x){ if(x.tagName==='TEXTAREA')x.disabled=false; });
+    }else{
+      div.classList.add('lock');
+      div.style.pointerEvents='none';
+      inputs.forEach(function(x){ if(x.tagName==='TEXTAREA')x.disabled=true; });
+    }
+  });
+  // final
+  var allDone=BLOCOS.every(function(b,i){return state.done['b'+i];});
+  document.getElementById('final').style.display=allDone?'block':'none';
+  document.getElementById('rodapeFinal').style.display=allDone?'block':'none';
+  renderMapa();
+  var qtd=BLOCOS.filter(function(b,i){return state.done['b'+i];}).length;
+  document.getElementById('prog').style.width=(qtd/BLOCOS.length*100)+'%';
+}
+
+function renderMapa(){
+  var m=document.getElementById('mapa'); m.innerHTML='';
+  var atual=0;
+  for(var i=0;i<BLOCOS.length;i++){ if(state.done['b'+i])atual=i+1; }
+  BLOCOS.forEach(function(b,i){
+    var s=document.createElement('div'); s.className='step';
+    if(state.done['b'+i])s.className+=' done';
+    else if(i===atual)s.className+=' cur';
+    s.textContent=(i+1)+'. '+b.t.split(':')[0].substring(0,16);
+    s.onclick=function(){var el=document.getElementById('b'+i); if(!el.classList.contains('lock'))el.scrollIntoView({behavior:'smooth'});};
+    m.appendChild(s);
+  });
+}
+
+/* ---------- Restaurar ---------- */
+function restaurar(){
+  BLOCOS.forEach(function(b,i){
+    for(var j=0;j<3;j++){
+      var v=state.resp['r'+i+'_'+j];
+      if(v!==undefined)document.getElementById('r'+i+'_'+j).value=v;
+    }
+    if(state.done['b'+i]){
+      document.getElementById('mod'+i).classList.add('show');
+    }
+    if(state.auto['b'+i]){
+      var wrap=document.querySelector('#mod'+i+' .auto');
+      if(wrap){var btns=wrap.querySelectorAll('button');
+        if(state.auto['b'+i]==='ok')btns[0].classList.add('sel-ok');
+        else btns[1].classList.add('sel-rev');}
+    }
+    onTypeSilent(i);
+  });
+  desbloqueia();
+}
+function onTypeSilent(i){
+  var ok=true;
+  for(var j=0;j<3;j++){var v=(document.getElementById('r'+i+'_'+j).value||'').trim(); if(v.length<3)ok=false;}
+  var btn=document.getElementById('conf'+i); btn.disabled=!ok;
+  btn.textContent=ok?'Conferir respostas ✓':'Conferir respostas 🔒';
+}
+
+/* ---------- Painel / util ---------- */
+function atualizaPainel(){
+  var d=new Date();
+  document.getElementById('painelInfo').textContent='Salvo automaticamente às '+d.toLocaleTimeString('pt-BR')+' · '+d.toLocaleDateString('pt-BR');
+}
+function toast(msg){
+  var t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2200);
+}
+function exportar(){
+  var blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='leitura-guiada-portugues9.json'; a.click();
+}
+function importar(ev){
+  var f=ev.target.files[0]; if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){try{state=JSON.parse(r.result);
+    if(!state.resp)state.resp={};if(!state.auto)state.auto={};if(!state.done)state.done={};
+    saveState(state); location.reload();}catch(e){toast('Arquivo inválido');}};
+  r.readAsText(f);
+}
+function pedirZerar(){
+  document.getElementById('modalTxt').textContent='Tem certeza que quer apagar TODAS as respostas e recomeçar?';
+  document.getElementById('modalBg').classList.add('show');
+  document.getElementById('modalOk').onclick=function(){
+    state={resp:{},auto:{},done:{}}; saveState(state); fecharModal(); location.reload();
+  };
+}
+function fecharModal(){document.getElementById('modalBg').classList.remove('show');}
+
+atualizaPainel();
+restaurar();
+</script>
+</body>
+</html>
